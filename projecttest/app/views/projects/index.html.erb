@@ -1,0 +1,13 @@
+<div>
+<p style="color: green"><%= notice %></p>
+<%= turbo_stream_from "projects" %>
+  <h5>Projects</h5>
+  <%= turbo_frame_tag "project_form" do %>
+    <%= render 'form', project:@project %>
+  <% end %>
+
+  <%= turbo_frame_tag "projects" do %>
+    <%= render @projects %>
+  <% end %>
+
+</div>

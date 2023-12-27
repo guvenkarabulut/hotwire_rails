@@ -1,0 +1,10 @@
+<%= turbo_frame_tag dom_id(@project) do %>
+  <div class="card card-body bg-info text-white">
+    <h1>Editing project</h1>
+    <%= render "form", project: @project %>
+    <br>
+    <div>
+      <%= link_to "cancel", projects_path %>
+    </div>
+  </div>
+<% end %>
