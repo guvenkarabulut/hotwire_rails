@@ -2,7 +2,7 @@
   <div class="card card-body bg-info text-white">
     <div class ="d-flex justify-content-between">
       <div>
-        <p><%= project.content %></p>
+        <p><%= link_to "#{project.content}", project_path(project), class:"nav-link", data: {turbo: false} %></p>
         <%= button_to "vote:#{project.vote}", project_votes_path(project), class:"btn btn-sm btn-primary", method: :post %>
       </div>
       <div>

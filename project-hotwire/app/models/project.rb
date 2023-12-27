@@ -4,4 +4,5 @@ class Project < ApplicationRecord
   after_destroy_commit { broadcast_remove_to 'projects' }
 
   validates :content, presence: true
+  has_many :tasks
 end

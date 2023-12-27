@@ -1,40 +1,30 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
 
-  # GET /projects or /projects.json
   def index
     @projects = Project.all
     @project = Project.new
   end
 
-  # GET /projects/1 or /projects/1.json
   def show; end
 
-  # GET /projects/new
   def new
     @project = Project.new
   end
 
-  # GET /projects/1/edit
   def edit; end
 
-  # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
-
     respond_to do |format|
-      if @project.save
+      if save_project_and_redirect(format)
         format.html { redirect_to projects_path, notice: 'Project was successfully created.' }
       else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@project, partial: 'projects/form', locals: { project: @project })
-        end
-        format.html { render :new, status: :unprocessable_entity }
+        handle_save_failure(format)
       end
     end
   end
 
-  # PATCH/PUT /projects/1 or /projects/1.json
   def update
     respond_to do |format|
       if @project.update(project_params)
@@ -47,10 +37,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1 or /projects/1.json
   def destroy
     @project.destroy!
-
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
@@ -59,12 +47,25 @@ class ProjectsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def save_project_and_redirect(format)
+    if @project.save
+      true
+    else
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@project, partial: 'projects/form', locals: { project: @project })
+      end
+      false
+    end
+  end
+
+  def handle_save_failure(format)
+    format.html { render :new, status: :unprocessable_entity }
+  end
+
   def set_project
     @project = Project.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def project_params
     params.require(:project).permit(:content, :vote)
   end
