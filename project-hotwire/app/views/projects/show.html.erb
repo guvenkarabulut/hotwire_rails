@@ -3,11 +3,9 @@
 <%= render @project %>
 <div class="content mt-2 mb-2">
   <%= render "tasks/form", task: @tasks %>
+  <%= turbo_stream_from "tasks" %>
+  <%= turbo_frame_tag "tasks" do %>
+    <%= render @tasks %>
+  <% end %>
 </div>
-<div>
-  <%= link_to "Edit this project", edit_project_path(@project) %> |
-  <%= link_to "Back to projects", projects_path %>
 
-  <%= button_to "Destroy this project", @project, method: :delete %>
-  
-</div>
