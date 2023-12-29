@@ -1,4 +1,4 @@
-<%= form_with(model: [@project, Task.new]) do |f| %>
+<%= form_with(model: [@task.project , task]) do |f| %>
   <div class="card card-body bg-info text-white">
     <%= f.text_area :body, class:"form-control", required: true %>
     <%= f.select(:status , [['TODO'],['On-progress'],['Completed']]) %>

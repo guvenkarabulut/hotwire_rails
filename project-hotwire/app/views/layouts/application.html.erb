@@ -15,6 +15,13 @@
   </head>
 
   <body>
+    <div class="row mt-2">
+      <% if signed_in? %>
+        <ul class="nav justify-content-end">
+          <%= button_to "logout", destroy_user_session_path, method: :delete, class:"nav-link"%>
+        </ul>
+    <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>

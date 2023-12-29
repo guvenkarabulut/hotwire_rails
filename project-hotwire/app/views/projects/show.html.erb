@@ -1,11 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @project %>
+
 <div class="content mt-2 mb-2">
-  <%= render "tasks/form", task: @tasks %>
+  <%= turbo_frame_tag "task_form" do %>
+    <%= render "tasks/form", task: @task %>
+  <% end %>
   <%= turbo_stream_from "tasks" %>
   <%= turbo_frame_tag "tasks" do %>
-    <%= render @tasks %>
+    <%= render @project.tasks.order(created_at: :desc) %>
   <% end %>
 </div>
 

@@ -7,8 +7,8 @@
         <small><%= time_ago_in_words(task.created_at) %> ago</small>
       </div>
       <div>
-        <%#= link_to "edit", edit_project_path(project) %>
-        <%#= button_to "delete", project, method: :delete, form: {data: {turbo_confirm: "Are you sure?"}}, class:"btn btn-sm btn-danger" %>
+        <%= link_to "edit", edit_project_task_path(task.project, task) %>
+        <%= button_to "delete", project_task_path(task.project, task), method: :delete, form: {data: {turbo_confirm: "Are you sure?"}}, class:"btn btn-sm btn-danger" %>
       </div>
     </div>
   </div>
